@@ -1,3 +1,10 @@
 spring:
   application:
     name: ai
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-4o-mini
+          max-tokens: 300
