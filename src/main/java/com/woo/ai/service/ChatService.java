@@ -1,5 +1,6 @@
 package com.woo.ai.service;
 
+import com.woo.ai.tools.WeatherTool;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.memory.ChatMemory;
@@ -18,10 +19,12 @@ public class ChatService {
 
     private final ChatClient chatClient;
     private final VectorStore vectorStore;
+    private final WeatherTool weatherTool;
 
-    public ChatService(ChatClient chatClient, VectorStore vectorStore) {
+    public ChatService(ChatClient chatClient, VectorStore vectorStore, WeatherTool weatherTool) {
         this.chatClient = chatClient;
         this.vectorStore = vectorStore;
+        this.weatherTool = weatherTool;
 
         List<Document> documents = List.of(
                 new Document("Spring AI rocks!! Spring AI rocks!! Spring AI rocks!! Spring AI rocks!! Spring AI rocks!!", Map.of("meta1", "meta1")),
@@ -33,6 +36,7 @@ public class ChatService {
 
     public String chatMemory(String userInput, String userId) {
         return chatClient.prompt()
+                .tools(weatherTool)
                 .user(userInput)
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, userId))
                 .call()
