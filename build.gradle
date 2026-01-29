@@ -29,6 +29,9 @@ dependencies {
     implementation platform("org.springframework.ai:spring-ai-bom:1.0.0")
     implementation 'org.springframework.ai:spring-ai-starter-model-openai'
 
+    implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
+    implementation 'org.springframework.ai:spring-ai-rag'
+
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'

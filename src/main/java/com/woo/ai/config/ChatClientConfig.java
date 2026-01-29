@@ -12,12 +12,14 @@ import org.springframework.context.annotation.Configuration;
 public class ChatClientConfig {
 
     @Bean
-    ChatClient chatClient(OpenAiChatModel openAiChatModel) {
-
-        ChatMemory chatMemory = MessageWindowChatMemory.builder()
+    ChatMemory chatMemory() {
+        return MessageWindowChatMemory.builder()
                 .maxMessages(20)
                 .build();
+    }
 
+    @Bean
+    ChatClient chatClient(OpenAiChatModel openAiChatModel, ChatMemory chatMemory) {
         MessageChatMemoryAdvisor chatMemoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory)
                 .build();
 
